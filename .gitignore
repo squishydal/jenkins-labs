@@ -1,0 +1,9 @@
+# local setup files - never commit these
+.env
+node_modules/
+dist/
+target/
+reports/
+__pycache__/
+*.pyc
+.jenkins-*

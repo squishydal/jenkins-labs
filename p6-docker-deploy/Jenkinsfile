@@ -1,0 +1,78 @@
+// Lab 6 — Docker CI/CD capstone.
+// Tests the Flask app, builds a Docker image, smoke-tests it, then deploys
+// it as a long-running container on your laptop (http://localhost:8090).
+pipeline {
+    agent any
+
+    environment {
+        IMAGE      = 'notes-api'
+        SMOKE_NAME = 'notes-api-smoke'
+        APP_NAME   = 'notes-api'
+        SMOKE_PORT = '18080'
+        APP_PORT   = '8090'
+        // From inside the Jenkins container this name reaches your laptop.
+        HOST       = 'http://host.docker.internal'
+    }
+
+    stages {
+        stage('Test') {
+            steps {
+                sh 'cd p6-docker-deploy && python3 -m pip install --quiet --break-system-packages -r requirements.txt "pytest>=8" && python3 -m pytest test_app.py -q'
+            }
+        }
+        stage('Build image') {
+            steps {
+                echo "Building ${env.IMAGE}:${env.BUILD_NUMBER}"
+                sh 'docker build -t $IMAGE:$BUILD_NUMBER p6-docker-deploy'
+            }
+        }
+        stage('Smoke test') {
+            steps {
+                sh '''
+                  docker rm -f $SMOKE_NAME 2>/dev/null || true
+                  docker run -d --name $SMOKE_NAME --network host -e PORT=$SMOKE_PORT $IMAGE:$BUILD_NUMBER
+                  for i in $(seq 1 20); do
+                    if curl -fsS $HOST:$SMOKE_PORT/health | grep -q ok; then
+                      echo "Smoke test passed on attempt $i"
+                      exit 0
+                    fi
+                    echo "Waiting for the app to boot ($i/20)..."
+                    sleep 1
+                  done
+                  echo "SMOKE TEST FAILED: /health never returned ok"
+                  exit 1
+                '''
+            }
+            post {
+                always {
+                    sh 'docker rm -f $SMOKE_NAME 2>/dev/null || true'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh '''
+                  docker rm -f $APP_NAME 2>/dev/null || true
+                  docker run -d --name $APP_NAME --network host -e PORT=$APP_PORT $IMAGE:$BUILD_NUMBER
+                  sleep 2
+                  curl -fsS $HOST:$APP_PORT/health
+                  echo ""
+                  echo "Deployed $IMAGE:$BUILD_NUMBER -> open http://localhost:$APP_PORT on your laptop"
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            // Never leave the smoke-test container behind, even on failure.
+            sh 'docker rm -f $SMOKE_NAME 2>/dev/null || true'
+        }
+        success {
+            echo "Notes API is live at http://localhost:8090"
+        }
+        failure {
+            echo 'Pipeline failed - check Console Output for the first red stage.'
+        }
+    }
+}

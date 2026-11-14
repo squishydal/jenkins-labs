@@ -1,0 +1,13 @@
+{
+  "name": "quickcart-checkout",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lab 3 - checkout totals with a deliberate bug for CI debugging practice",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest --runInBand"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

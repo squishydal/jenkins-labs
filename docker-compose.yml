@@ -1,0 +1,31 @@
+# Jenkins learning lab.
+#
+# One container that runs Jenkins LTS with all lab build tools installed.
+# Your build data lives in the "jenkins_home" docker volume, so it survives
+# restarts. Lab 6 talks to your laptop's Docker engine through the socket.
+
+services:
+  jenkins:
+    build: .
+    image: jenkins-lab:latest
+    container_name: jenkins-lab
+    restart: unless-stopped
+    ports:
+      - "8080:8080"     # Jenkins web UI        -> http://localhost:8080
+      - "50000:50000"   # inbound agent port (not used by the labs, future-proofing)
+    environment:
+      - DOCKER_GID=${DOCKER_GID}
+    # Adds the laptop's docker group (GID from .env) as a supplementary group
+    # for the jenkins user inside the container, so it may use docker.sock.
+    group_add:
+      - "${DOCKER_GID}"
+    extra_hosts:
+      # Lets the Jenkins container reach your laptop as "host.docker.internal"
+      # (used by Lab 6 smoke tests to health-check the app it deployed).
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - jenkins_home:/var/jenkins_home              # all Jenkins settings & history
+      - /var/run/docker.sock:/var/run/docker.sock   # Docker access for Lab 6
+
+volumes:
+  jenkins_home:

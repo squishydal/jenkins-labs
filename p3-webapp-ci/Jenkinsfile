@@ -1,0 +1,33 @@
+// Lab 3 — QuickCart CI pipeline.
+// First run is EXPECTED to fail: the code has a planted rounding bug.
+// Follow Handbook, Chapter 8 to debug it red -> green.
+pipeline {
+    agent any
+
+    stages {
+        stage('Install') {
+            steps {
+                echo 'Installing npm dependencies...'
+                sh 'npm install --no-audit --no-fund'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running the Jest test suite...'
+                sh 'npm test'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'All tests passed - this commit is healthy.'
+        }
+        failure {
+            echo 'Tests failed. Open Console Output and compare EXPECTED vs RECEIVED.'
+        }
+        always {
+            echo "Build #${env.BUILD_NUMBER} finished."
+        }
+    }
+}

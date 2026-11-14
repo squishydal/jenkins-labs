@@ -1,0 +1,241 @@
+date,region,product,amount
+2026-11-02,north,Coffee Beans 1kg,21.80
+2026-10-03,south,Cups Set,23.30
+2026-11-22,east,Hot Chocolate Mix,12.35
+2026-10-13,east,Hot Chocolate Mix,15.66
+2026-10-19,south,Teapot,26.55
+2026-10-02,east,Marshmallows,4.70
+2026-11-26,west,Straw Set,9.63
+2026-11-12,east,Cocoa Powder,11.09
+2026-11-01,west,Straw Set,9.34
+2026-10-20,east,Cocoa Powder,11.93
+2026-11-14,north,Milk Frother,34.19
+2026-11-08,east,Marshmallows,7.15
+2026-11-05,west,Cold Brew Bottle,25.90
+2026-10-03,east,Marshmallows,6.66
+2026-11-13,south,Infuser,11.38
+2026-11-14,west,Reusable Cup,12.61
+2026-10-02,north,Espresso Machine,252.75
+2026-11-23,north,Grinder,72.86
+2026-10-02,east,Whisk,7.85
+2026-11-09,south,Infuser,8.88
+2026-11-10,north,Milk Frother,37.93
+2026-10-23,east,Cocoa Powder,13.52
+2026-11-11,east,Marshmallows,4.21
+2026-11-11,east,Whisk,10.69
+2026-10-11,north,Espresso Machine,362.82
+2026-11-28,south,Cups Set,27.66
+2026-10-21,east,Hot Chocolate Mix,17.46
+2026-11-20,south,Teapot,44.11
+2026-11-20,north,Coffee Beans 1kg,15.32
+2026-11-23,south,Cups Set,45.46
+2026-11-10,north,Espresso Machine,370.41
+2026-11-24,west,Reusable Cup,20.11
+2026-10-12,east,Whisk,10.37
+2026-11-12,north,Milk Frother,36.28
+2026-10-17,west,Reusable Cup,18.16
+2026-10-20,south,Infuser,12.33
+2026-10-21,west,Straw Set,5.45
+2026-11-16,west,Reusable Cup,18.98
+2026-11-28,west,Reusable Cup,22.84
+2026-11-22,west,Straw Set,4.77
+2026-11-13,south,Teapot,25.91
+2026-10-18,north,Coffee Beans 1kg,22.09
+2026-11-15,west,Reusable Cup,17.53
+2026-11-23,east,Hot Chocolate Mix,17.07
+2026-11-04,west,Cleaning Brush,7.42
+2026-10-25,east,Marshmallows,6.44
+2026-10-08,west,Cold Brew Bottle,29.20
+2026-11-06,west,Cold Brew Bottle,29.49
+2026-10-27,north,Grinder,76.27
+2026-10-21,north,Grinder,55.11
+2026-10-02,south,Green Tea 100g,14.86
+2026-10-23,west,Reusable Cup,23.52
+2026-10-28,south,Green Tea 100g,9.03
+2026-11-22,south,Infuser,9.60
+2026-11-28,west,Straw Set,8.99
+2026-10-21,west,Reusable Cup,27.18
+2026-10-09,west,Cleaning Brush,4.54
+2026-10-18,east,Cocoa Powder,9.50
+2026-11-02,west,Cold Brew Bottle,24.90
+2026-11-17,north,Coffee Beans 1kg,20.78
+2026-11-18,north,Milk Frother,40.76
+2026-11-27,north,Coffee Beans 1kg,21.11
+2026-11-16,north,Espresso Machine,263.51
+2026-10-11,north,Milk Frother,57.29
+2026-11-26,south,Cups Set,29.42
+2026-10-04,north,Espresso Machine,359.47
+2026-10-20,west,Reusable Cup,17.83
+2026-11-16,south,Teapot,40.38
+2026-10-06,south,Teapot,41.75
+2026-11-24,east,Hot Chocolate Mix,15.16
+2026-11-10,south,Infuser,9.52
+2026-10-26,north,Grinder,76.21
+2026-10-12,west,Cleaning Brush,5.81
+2026-11-13,east,Whisk,6.81
+2026-10-26,north,Coffee Beans 1kg,18.45
+2026-10-18,east,Hot Chocolate Mix,10.53
+2026-11-03,north,Espresso Machine,285.73
+2026-10-18,west,Straw Set,5.30
+2026-10-26,south,Green Tea 100g,12.85
+2026-10-16,west,Cleaning Brush,7.84
+2026-10-16,south,Infuser,9.26
+2026-10-01,east,Whisk,7.26
+2026-10-07,north,Milk Frother,50.44
+2026-10-19,north,Grinder,69.38
+2026-10-17,east,Hot Chocolate Mix,9.98
+2026-10-04,east,Marshmallows,6.52
+2026-10-25,north,Coffee Beans 1kg,23.40
+2026-10-07,east,Marshmallows,3.91
+2026-10-04,east,Whisk,6.92
+2026-10-20,east,Hot Chocolate Mix,17.93
+2026-11-17,north,Milk Frother,56.83
+2026-10-22,north,Grinder,80.68
+2026-10-03,south,Green Tea 100g,12.30
+2026-11-27,west,Straw Set,7.81
+2026-11-18,south,Teapot,43.67
+2026-10-25,east,Cocoa Powder,13.23
+2026-10-11,west,Cold Brew Bottle,29.44
+2026-11-10,east,Whisk,9.37
+2026-10-09,north,Milk Frother,54.05
+2026-11-13,north,Espresso Machine,290.68
+2026-10-05,north,Milk Frother,34.80
+2026-10-15,east,Cocoa Powder,11.05
+2026-10-02,south,Cups Set,41.45
+2026-10-21,south,Green Tea 100g,13.78
+2026-10-05,south,Cups Set,23.48
+2026-10-07,south,Cups Set,37.47
+2026-10-05,north,Grinder,69.31
+2026-11-27,east,Whisk,9.89
+2026-11-13,west,Cleaning Brush,6.40
+2026-10-14,south,Teapot,41.94
+2026-10-11,west,Cleaning Brush,7.15
+2026-11-24,south,Green Tea 100g,9.40
+2026-10-03,west,Cold Brew Bottle,23.17
+2026-11-07,west,Cleaning Brush,4.98
+2026-10-27,west,Reusable Cup,18.73
+2026-10-11,south,Infuser,10.67
+2026-10-24,north,Coffee Beans 1kg,22.54
+2026-11-16,east,Hot Chocolate Mix,13.83
+2026-11-05,east,Marshmallows,5.72
+2026-11-17,west,Cleaning Brush,6.09
+2026-11-04,north,Grinder,87.88
+2026-10-24,south,Cups Set,31.85
+2026-11-04,south,Cups Set,35.07
+2026-10-27,south,Green Tea 100g,12.85
+2026-10-01,west,Cold Brew Bottle,28.46
+2026-11-12,east,Hot Chocolate Mix,17.94
+2026-11-22,east,Cocoa Powder,13.83
+2026-10-20,west,Straw Set,8.70
+2026-11-15,east,Hot Chocolate Mix,11.03
+2026-10-18,west,Reusable Cup,16.08
+2026-10-05,north,Espresso Machine,337.57
+2026-10-05,south,Green Tea 100g,12.49
+2026-10-19,east,Hot Chocolate Mix,14.25
+2026-11-08,east,Whisk,10.31
+2026-10-19,east,Cocoa Powder,13.34
+2026-10-04,west,Cold Brew Bottle,25.31
+2026-10-13,west,Cold Brew Bottle,18.42
+2026-11-06,south,Green Tea 100g,10.30
+2026-10-06,east,Whisk,7.04
+2026-10-04,north,Milk Frother,45.92
+2026-11-23,south,Green Tea 100g,11.74
+2026-11-28,north,Coffee Beans 1kg,16.19
+2026-10-08,south,Teapot,23.74
+2026-11-21,north,Coffee Beans 1kg,23.13
+2026-11-24,north,Grinder,64.26
+2026-10-19,south,Infuser,7.18
+2026-10-14,south,Infuser,8.29
+2026-10-09,east,Marshmallows,3.52
+2026-10-14,east,Cocoa Powder,7.99
+2026-11-07,west,Cold Brew Bottle,31.49
+2026-10-10,east,Marshmallows,6.30
+2026-11-01,north,Coffee Beans 1kg,16.68
+2026-10-25,south,Green Tea 100g,8.97
+2026-10-15,north,Milk Frother,37.30
+2026-10-24,east,Cocoa Powder,13.12
+2026-10-17,east,Cocoa Powder,10.29
+2026-11-17,west,Straw Set,7.17
+2026-10-12,south,Infuser,7.24
+2026-11-11,south,Teapot,20.39
+2026-10-16,west,Straw Set,8.38
+2026-11-01,north,Grinder,53.46
+2026-11-09,west,Cold Brew Bottle,26.76
+2026-10-03,north,Coffee Beans 1kg,20.83
+2026-11-11,east,Hot Chocolate Mix,15.55
+2026-10-15,west,Cold Brew Bottle,25.74
+2026-11-07,south,Teapot,41.03
+2026-11-13,north,Milk Frother,41.77
+2026-10-14,west,Cold Brew Bottle,34.73
+2026-10-07,north,Espresso Machine,283.90
+2026-11-25,north,Grinder,70.16
+2026-10-09,south,Teapot,33.44
+2026-11-25,west,Straw Set,8.10
+2026-10-12,north,Espresso Machine,353.72
+2026-11-09,east,Whisk,7.69
+2026-10-19,north,Coffee Beans 1kg,24.62
+2026-11-28,east,Whisk,9.99
+2026-10-03,north,Grinder,87.15
+2026-11-07,south,Green Tea 100g,14.48
+2026-11-15,north,Espresso Machine,264.33
+2026-10-28,east,Marshmallows,4.66
+2026-10-06,north,Espresso Machine,253.47
+2026-10-10,east,Hot Chocolate Mix,15.23
+2026-11-22,north,Coffee Beans 1kg,20.50
+2026-10-10,south,Teapot,34.93
+2026-10-10,west,Cleaning Brush,5.66
+2026-10-17,south,Teapot,23.12
+2026-11-15,west,Cleaning Brush,5.69
+2026-10-23,west,Straw Set,9.45
+2026-11-08,west,Cleaning Brush,5.37
+2026-10-06,south,Cups Set,44.13
+2026-11-28,north,Grinder,79.74
+2026-10-01,south,Green Tea 100g,10.19
+2026-10-15,south,Infuser,9.90
+2026-11-12,south,Teapot,41.96
+2026-10-14,north,Espresso Machine,392.58
+2026-10-20,north,Grinder,79.23
+2026-10-08,south,Cups Set,32.50
+2026-10-08,north,Milk Frother,36.77
+2026-11-27,south,Cups Set,26.02
+2026-10-26,east,Cocoa Powder,8.67
+2026-10-23,north,Coffee Beans 1kg,14.98
+2026-10-12,west,Cold Brew Bottle,31.71
+2026-10-03,east,Whisk,10.28
+2026-11-06,east,Marshmallows,7.48
+2026-11-13,east,Cocoa Powder,11.15
+2026-10-18,south,Infuser,9.38
+2026-10-08,north,Espresso Machine,333.19
+2026-11-26,east,Marshmallows,7.60
+2026-10-21,east,Cocoa Powder,9.80
+2026-11-06,north,Milk Frother,38.00
+2026-10-09,south,Cups Set,37.05
+2026-11-16,north,Milk Frother,52.31
+2026-11-19,west,Reusable Cup,12.03
+2026-10-21,south,Infuser,7.83
+2026-11-05,west,Cleaning Brush,6.78
+2026-10-07,east,Whisk,7.93
+2026-11-05,east,Whisk,7.68
+2026-11-04,south,Green Tea 100g,13.45
+2026-11-14,west,Cleaning Brush,4.19
+2026-11-09,north,Espresso Machine,282.07
+2026-11-02,west,Straw Set,6.93
+2026-10-01,south,Cups Set,37.06
+2026-10-15,south,Teapot,22.05
+2026-10-03,west,Cleaning Brush,7.76
+2026-11-14,east,Hot Chocolate Mix,11.95
+2026-11-02,north,Grinder,55.33
+2026-11-16,east,Cocoa Powder,11.29
+2026-11-10,west,Cold Brew Bottle,19.59
+2026-10-01,east,Marshmallows,6.77
+2026-11-22,west,Reusable Cup,21.97
+2026-11-25,west,Reusable Cup,17.22
+2026-10-27,east,Marshmallows,7.63
+2026-11-25,south,Cups Set,28.90
+2026-10-19,west,Straw Set,9.32
+2026-11-06,west,Cleaning Brush,5.92
+2026-10-24,west,Straw Set,6.96
+2026-11-17,south,Infuser,9.49
+2026-11-26,west,Reusable Cup,20.87
+2026-11-22,south,Green Tea 100g,15.86
+2026-10-08,south,Infuser,7.43

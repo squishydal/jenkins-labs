@@ -1,0 +1,57 @@
+// Lab 5 — cross-platform Go release pipeline.
+// Verifies the code, then builds release zips for three operating systems.
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'VERSION', defaultValue: '0.1.0',
+               description: 'Version tag baked into the release zip file names')
+    }
+
+    stages {
+        stage('Verify') {
+            parallel {
+                stage('Vet') {
+                    steps {
+                        sh 'go vet ./...'
+                    }
+                }
+                stage('Test') {
+                    steps {
+                        sh 'go test ./...'
+                    }
+                }
+            }
+        }
+        stage('Cross-compile') {
+            matrix {
+                axes {
+                    axis {
+                        name 'GOOS'
+                        values 'linux', 'darwin', 'windows'
+                    }
+                }
+                stages {
+                    stage('Build') {
+                        steps {
+                            sh '''
+                              mkdir -p dist
+                              EXT=""
+                              if [ "$GOOS" = "windows" ]; then EXT=".exe"; fi
+                              GOOS=$GOOS GOARCH=amd64 go build -o dist/wordutil-$GOOS$EXT .
+                              zip -j dist/wordutil-${VERSION}-${GOOS}-amd64.zip dist/wordutil-$GOOS$EXT
+                              echo "Built dist/wordutil-${VERSION}-${GOOS}-amd64.zip"
+                            '''
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'dist/*.zip', fingerprint: true
+        }
+    }
+}

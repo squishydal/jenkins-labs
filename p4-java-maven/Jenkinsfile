@@ -1,0 +1,35 @@
+// Lab 4 — Maven build with published test reports and archived artifacts.
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Compiling...'
+                sh 'mvn -B -ntp compile'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running JUnit tests...'
+                sh 'mvn -B -ntp test'
+            }
+        }
+        stage('Package') {
+            steps {
+                echo 'Packaging the jar...'
+                sh 'mvn -B -ntp -DskipTests package'
+            }
+        }
+    }
+
+    post {
+        always {
+            // Turns Maven's surefire XML into the Jenkins test trend graphs.
+            junit testResults: 'target/surefire-reports/*.xml', allowEmptyResults: false
+        }
+        success {
+            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+        }
+    }
+}
