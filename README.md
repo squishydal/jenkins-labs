@@ -1,4 +1,4 @@
-# jenkins-labs — six hands-on projects for learning Jenkins
+# jenkins-labs — ten hands-on projects for learning Jenkins
 
 Each folder is a separate mini-project with a **different real-world case**, so you
 practice a different Jenkins skill every time. The full walkthrough for every lab
@@ -33,6 +33,8 @@ git push -u origin main
 
 ## The lab map
 
+### Core course (p1-p6): language builds
+
 | Folder | Case you practice | Job type | Language | Jenkins skills |
 |---|---|---|---|---|
 | `p1-hello-jenkins` | The plain starter job (the "template" one) | Freestyle | shell/python | jobs, builds, console, workspace |
@@ -41,6 +43,17 @@ git push -u origin main
 | `p4-java-maven` | Invoice library build + test reports | Pipeline | Java/Maven | compiled builds, JUnit trend graphs, archiving jars |
 | `p5-go-release` | Cross-platform CLI release | Pipeline | Go | parallel stages, matrix builds, versioned release zips |
 | `p6-docker-deploy` | Flask API built, tested, deployed as a container | Pipeline | Python+Docker | image builds, smoke tests, deploy, cleanup |
+
+### Day-to-day ops crash course (p7-p10): how real teams run Jenkins
+
+Do these after p5-p6 — p8 and p9 need the Docker practice from p6.
+
+| Folder | Daily problem it mirrors | Jenkins skills |
+|---|---|---|
+| `p7-quality-gate` | "Is it broken or just sloppy?" — lint noise vs real failures | `catchError`, UNSTABLE (yellow) vs FAILURE (red), pip inside builds |
+| `p8-env-promotion` | Build once, promote dev → staging → prod with approvals | `input`, `timeout`, one artifact through environments |
+| `p9-janitor` | "No space left on device" — the classic Jenkins admin ticket | cron in Jenkinsfile, safe docker pruning, `deleteDir`, Discard old builds |
+| `p10-pr-gate` | Every PR must pass CI before merge (the daily team loop) | Multibranch Pipeline, branch indexing, plugin install, feature branches |
 
 Do them in order — each lab assumes only what the previous ones taught.
 
@@ -60,5 +73,5 @@ jenkins-labs/
 ├── Dockerfile            custom Jenkins image (Jenkins LTS + Python/Node/Go/Maven/Docker CLI)
 ├── docker-compose.yml    how the container runs
 ├── setup.sh              one-command setup
-└── p1 ... p6             the six lab projects (p3+ contain a Jenkinsfile each)
+└── p1 ... p10            the ten lab projects (p3+ contain a Jenkinsfile each)
 ```

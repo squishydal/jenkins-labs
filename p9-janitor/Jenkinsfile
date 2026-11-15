@@ -1,0 +1,75 @@
+// Lab 9 — nightly janitor: measures Jenkins disk usage, safely prunes
+// stopped containers and dangling docker images, archives a report.
+// The cron trigger registers when this pipeline runs for the first time;
+// H 4 * * * = once a night at a stable-but-spread minute around 04:00.
+pipeline {
+    agent any
+
+    triggers {
+        cron('H 4 * * *')
+    }
+
+    environment {
+        JH = '/var/jenkins_home'
+    }
+
+    stages {
+        stage('Measure') {
+            steps {
+                sh '''
+                  echo "=== disk ==="
+                  df -h $JH
+                  echo ""
+                  echo "=== biggest workspaces ==="
+                  du -sh $JH/workspace/* 2>/dev/null | sort -rh | head -15
+                  echo ""
+                  echo "=== docker usage ==="
+                  docker system df
+                '''
+            }
+        }
+        stage('Docker cleanup') {
+            steps {
+                // SAFE on purpose:
+                //  - container prune removes only STOPPED containers
+                //    (your running apps from Lab 8 keep running)
+                //  - image prune removes only DANGLING (untagged) layers
+                //    left behind by repeated builds
+                sh '''
+                  echo "before:"; docker system df
+                  docker container prune -f
+                  docker image prune -f
+                  echo "after:"; docker system df
+                '''
+            }
+        }
+        stage('Report') {
+            steps {
+                sh '''
+                  mkdir -p reports
+                  {
+                    echo "Jenkins janitor report - $(date)"
+                    df -h $JH
+                    echo ""
+                    echo "top workspaces:"
+                    du -sh $JH/workspace/* 2>/dev/null | sort -rh | head -15
+                    echo ""
+                    docker system df
+                  } > reports/disk_report.txt
+                  cat reports/disk_report.txt
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'reports/*.txt', allowEmptyArchive: true
+            // A janitor job needs nothing from its workspace between runs.
+            deleteDir()
+        }
+        success {
+            echo 'Housekeeping done.'
+        }
+    }
+}

@@ -1,0 +1,33 @@
+// Lab 10 — multibranch pipeline: this file runs on EVERY branch and PR
+// that Jenkins discovers during branch indexing. env.BRANCH_NAME tells
+// you which one you are on - that variable is what makes this script
+// branch-aware without any per-branch configuration.
+pipeline {
+    agent any
+
+    stages {
+        stage('Info') {
+            steps {
+                echo "Running checks for branch: ${env.BRANCH_NAME}"
+            }
+        }
+        stage('Test') {
+            steps {
+                // unittest keeps this lab dependency-free: no pip install,
+                // the Python in the Jenkins image is enough.
+                dir('p10-pr-gate') {
+                    sh 'python3 -m unittest discover -s . -p "test_*.py" -v'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "${env.BRANCH_NAME}: checks passed - safe to merge."
+        }
+        failure {
+            echo "${env.BRANCH_NAME}: checks FAILED - do not merge this branch."
+        }
+    }
+}

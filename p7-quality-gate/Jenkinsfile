@@ -1,0 +1,46 @@
+// Lab 7 — quality gate: lint warnings make the build UNSTABLE (yellow ball),
+// failing tests make it FAILURE (red ball). Sloppy-but-working code is yellow.
+pipeline {
+    agent any
+
+    stages {
+        stage('Setup') {
+            steps {
+                // Installing the linter and test runner inside the build is
+                // normal when the Jenkins image does not ship them.
+                sh 'python3 -m pip install --quiet --break-system-packages flake8 pytest'
+            }
+        }
+        stage('Lint') {
+            steps {
+                // flake8 exits non-zero when it finds issues. catchError
+                // downgrades that to UNSTABLE instead of failing the build,
+                // so the Test stage still runs and the tests still count.
+                catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+                    dir('p7-quality-gate') {
+                        sh 'python3 -m flake8 --count .'
+                    }
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                dir('p7-quality-gate') {
+                    sh 'python3 -m pytest -q'
+                }
+            }
+        }
+    }
+
+    post {
+        unstable {
+            echo 'Sloppy but working: lint issues found (yellow ball). Clean them up.'
+        }
+        failure {
+            echo 'Broken: tests failed (red ball). Fix the code or the test.'
+        }
+        success {
+            echo 'Clean and green. This is what you want to see every morning.'
+        }
+    }
+}

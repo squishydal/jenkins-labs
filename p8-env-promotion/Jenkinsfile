@@ -1,0 +1,87 @@
+// Lab 8 — promotion pipeline: ONE image is built, then deployed to
+// dev (automatic) -> staging (human approval) -> prod (human approval).
+// The image tag $BUILD_NUMBER is the thread that ties the three deploys
+// together: same tag everywhere, never rebuilt per environment.
+pipeline {
+    agent any
+
+    environment {
+        IMAGE = 'greeter'
+        HOST  = 'http://host.docker.internal'
+    }
+
+    stages {
+        stage('Build image') {
+            steps {
+                sh 'docker build -t $IMAGE:$BUILD_NUMBER p8-env-promotion'
+            }
+        }
+        stage('Deploy dev') {
+            steps {
+                sh '''
+                  docker rm -f greeter-dev 2>/dev/null || true
+                  docker run -d --name greeter-dev --network host -e PORT=8091 -e APP_ENV=dev -e APP_VERSION=$BUILD_NUMBER $IMAGE:$BUILD_NUMBER
+                  for i in $(seq 1 10); do
+                    if curl -fsS $HOST:8091/health; then echo ""; echo "dev is up on 8091"; exit 0; fi
+                    sleep 1
+                  done
+                  echo "DEV FAILED TO START"; exit 1
+                '''
+            }
+        }
+        stage('Approve staging') {
+            steps {
+                // The build physically pauses here. 15 minutes keeps it from
+                // parking forever if you walk away.
+                timeout(time: 15, unit: 'MINUTES') {
+                    input message: "Promote build #${env.BUILD_NUMBER} to STAGING?", ok: 'Proceed'
+                }
+            }
+        }
+        stage('Deploy staging') {
+            steps {
+                sh '''
+                  docker rm -f greeter-staging 2>/dev/null || true
+                  docker run -d --name greeter-staging --network host -e PORT=8092 -e APP_ENV=staging -e APP_VERSION=$BUILD_NUMBER $IMAGE:$BUILD_NUMBER
+                  for i in $(seq 1 10); do
+                    if curl -fsS $HOST:8092/health; then echo ""; echo "staging is up on 8092"; exit 0; fi
+                    sleep 1
+                  done
+                  echo "STAGING FAILED TO START"; exit 1
+                '''
+            }
+        }
+        stage('Approve prod') {
+            steps {
+                timeout(time: 15, unit: 'MINUTES') {
+                    input message: "Promote build #${env.BUILD_NUMBER} to PRODUCTION?", ok: 'Proceed'
+                }
+            }
+        }
+        stage('Deploy prod') {
+            steps {
+                sh '''
+                  docker rm -f greeter-prod 2>/dev/null || true
+                  docker run -d --name greeter-prod --network host -e PORT=8093 -e APP_ENV=prod -e APP_VERSION=$BUILD_NUMBER $IMAGE:$BUILD_NUMBER
+                  for i in $(seq 1 10); do
+                    if curl -fsS $HOST:8093/health; then echo ""; echo "prod is up on 8093"; exit 0; fi
+                    sleep 1
+                  done
+                  echo "PROD FAILED TO START"; exit 1
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'One image, three environments. Open localhost:8091 / 8092 / 8093.'
+        }
+        aborted {
+            echo 'Promotion rejected or expired - nothing beyond dev was touched. This is a normal, healthy outcome.'
+        }
+        failure {
+            echo 'Pipeline failed - check which stage and why.'
+        }
+    }
+}
