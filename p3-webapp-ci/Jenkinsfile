@@ -13,6 +13,14 @@ pipeline {
                 }
             }
         }
+		stage('Smoke') {
+            steps {
+                dir('p3-webapp-ci') {
+                    echo 'Booting the app for a quick sanity check...'
+                    sh 'node src/index.js'
+                }
+            }
+        }
         stage('Test') {
             steps {
                 dir('p3-webapp-ci') {
