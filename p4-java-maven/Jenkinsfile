@@ -1,35 +1,47 @@
 // Lab 4 — Maven build with published test reports and archived artifacts.
+// dir('p4-java-maven') = run the steps inside that subfolder, because the
+// workspace root holds every lab of the repo and pom.xml lives one level down.
 pipeline {
     agent any
 
     stages {
         stage('Build') {
             steps {
-                echo 'Compiling...'
-                sh 'mvn -B -ntp compile'
+                dir('p4-java-maven') {
+                    echo 'Compiling...'
+                    sh 'mvn -B -ntp compile'
+                }
             }
         }
         stage('Test') {
             steps {
-                echo 'Running JUnit tests...'
-                sh 'mvn -B -ntp test'
+                dir('p4-java-maven') {
+                    echo 'Running JUnit tests...'
+                    sh 'mvn -B -ntp test'
+                }
             }
         }
         stage('Package') {
             steps {
-                echo 'Packaging the jar...'
-                sh 'mvn -B -ntp -DskipTests package'
+                dir('p4-java-maven') {
+                    echo 'Packaging the jar...'
+                    sh 'mvn -B -ntp -DskipTests package'
+                }
             }
         }
     }
 
     post {
         always {
-            // Turns Maven's surefire XML into the Jenkins test trend graphs.
-            junit testResults: 'target/surefire-reports/*.xml', allowEmptyResults: false
+            dir('p4-java-maven') {
+                // Turns Maven's surefire XML into the Jenkins test trend graphs.
+                junit testResults: 'target/surefire-reports/*.xml', allowEmptyResults: false
+            }
         }
         success {
-            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            dir('p4-java-maven') {
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
         }
     }
 }

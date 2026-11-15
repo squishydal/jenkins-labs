@@ -17,7 +17,7 @@ function subtotal(items) {
  */
 function applyDiscount(items, discountPercent) {
   const raw = subtotal(items) * (1 - discountPercent / 100);
-  return Math.round(raw * 100) / 100; // <-- BUG: rounds to ONE decimal place
+  return Math.round(raw * 10) / 10; // <-- BUG: rounds to ONE decimal place
 }
 
 module.exports = { subtotal, applyDiscount };

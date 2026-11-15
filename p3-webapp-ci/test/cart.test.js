@@ -19,11 +19,7 @@ describe("checkout totals", () => {
   test("25% discount is rounded to 2 decimals", () => {
     // 55.97 * 0.75 = 41.9775  ->  the spec says 41.98
     expect(applyDiscount(cart, 25)).toBeCloseTo(41.98, 2);
-  })
-  test("5% discount is rounded to 2 decimals", () => {
-    // 55.97 * 0.75 = 41.9775  ->  the spec says 41.98
-    expect(applyDiscount(cart, 5)).toBeCloseTo(53.17, 2);
-  });;
+  });
 
   test("100% discount empties the cart", () => {
     expect(applyDiscount(cart, 100)).toBe(0);

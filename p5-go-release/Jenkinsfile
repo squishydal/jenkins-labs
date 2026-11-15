@@ -1,5 +1,7 @@
 // Lab 5 — cross-platform Go release pipeline.
 // Verifies the code, then builds release zips for three operating systems.
+// dir('p5-go-release') = run the steps inside that subfolder, because the
+// workspace root holds every lab of the repo and go.mod lives one level down.
 pipeline {
     agent any
 
@@ -13,12 +15,16 @@ pipeline {
             parallel {
                 stage('Vet') {
                     steps {
-                        sh 'go vet ./...'
+                        dir('p5-go-release') {
+                            sh 'go vet ./...'
+                        }
                     }
                 }
                 stage('Test') {
                     steps {
-                        sh 'go test ./...'
+                        dir('p5-go-release') {
+                            sh 'go test ./...'
+                        }
                     }
                 }
             }
@@ -34,14 +40,16 @@ pipeline {
                 stages {
                     stage('Build') {
                         steps {
-                            sh '''
-                              mkdir -p dist
-                              EXT=""
-                              if [ "$GOOS" = "windows" ]; then EXT=".exe"; fi
-                              GOOS=$GOOS GOARCH=amd64 go build -o dist/wordutil-$GOOS$EXT .
-                              zip -j dist/wordutil-${VERSION}-${GOOS}-amd64.zip dist/wordutil-$GOOS$EXT
-                              echo "Built dist/wordutil-${VERSION}-${GOOS}-amd64.zip"
-                            '''
+                            dir('p5-go-release') {
+                                sh '''
+                                  mkdir -p dist
+                                  EXT=""
+                                  if [ "$GOOS" = "windows" ]; then EXT=".exe"; fi
+                                  GOOS=$GOOS GOARCH=amd64 go build -o dist/wordutil-$GOOS$EXT .
+                                  zip -j dist/wordutil-${VERSION}-${GOOS}-amd64.zip dist/wordutil-$GOOS$EXT
+                                  echo "Built dist/wordutil-${VERSION}-${GOOS}-amd64.zip"
+                                '''
+                            }
                         }
                     }
                 }
@@ -51,7 +59,9 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'dist/*.zip', fingerprint: true
+            dir('p5-go-release') {
+                archiveArtifacts artifacts: 'dist/*.zip', fingerprint: true
+            }
         }
     }
 }

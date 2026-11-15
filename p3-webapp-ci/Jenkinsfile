@@ -1,6 +1,11 @@
 // Lab 3 — QuickCart CI pipeline.
 // First run is EXPECTED to fail: the code has a planted rounding bug.
 // Follow Handbook, Chapter 8 to debug it red -> green.
+//
+// dir('p3-webapp-ci') means "run these steps inside that folder instead of
+// the workspace root". Your jenkins-labs repo holds ALL the labs, so after
+// checkout the workspace root only contains folders like p1-..., p2-... and
+// p3-webapp-ci — npm needs to work where package.json actually lives.
 pipeline {
     agent any
 
