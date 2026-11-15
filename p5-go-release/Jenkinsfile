@@ -36,6 +36,10 @@ pipeline {
                         name 'GOOS'
                         values 'linux', 'darwin', 'windows'
                     }
+                    axis {
+                        name 'GOARCH'
+                        values 'amd64', 'arm64'
+                    }
                 }
                 stages {
                     stage('Build') {
@@ -45,9 +49,9 @@ pipeline {
                                   mkdir -p dist
                                   EXT=""
                                   if [ "$GOOS" = "windows" ]; then EXT=".exe"; fi
-                                  GOOS=$GOOS GOARCH=amd64 go build -o dist/wordutil-$GOOS$EXT .
-                                  zip -j dist/wordutil-${VERSION}-${GOOS}-amd64.zip dist/wordutil-$GOOS$EXT
-                                  echo "Built dist/wordutil-${VERSION}-${GOOS}-amd64.zip"
+                                  GOOS=$GOOS GOARCH=$GOARCH go build -o dist/wordutil-$GOOS$EXT .
+                                  zip -j dist/wordutil-${VERSION}-${GOOS}-${GOARCH}.zip dist/wordutil-$GOOS$EXT
+                                  echo "Built dist/wordutil-${VERSION}-${GOOS}-${GOARCH}.zip"
                                 '''
                             }
                         }
