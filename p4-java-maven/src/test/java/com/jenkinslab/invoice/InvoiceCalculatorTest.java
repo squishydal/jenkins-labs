@@ -37,8 +37,8 @@ class InvoiceCalculatorTest {
         var items = List.of(
                 new InvoiceCalculator.LineItem("Mug", 3, 4.99),
                 new InvoiceCalculator.LineItem("Beans", 2, 11.53));
-        // subtotal 37.03, tax 8% -> 39.9924 -> 39.99
-        assertEquals(39.99, InvoiceCalculator.totalWithTax(items, 0.08));
+        // subtotal 38.03 (3x4.99 + 2x11.53), tax 8% -> 41.0724 -> 41.07
+        assertEquals(41.07, InvoiceCalculator.totalWithTax(items, 0.08));
     }
 
     @Test
