@@ -8,7 +8,7 @@ tells you to.
 
 def mean(values):
     total = 0.0
-    for v in values: 
+    for v in values:
         total += v
     return total / len(values)
 
