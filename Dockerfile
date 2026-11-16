@@ -20,7 +20,7 @@ ENV NODE_VERSION=24.22.3 \
 RUN apt-get update && apt-get install -y --no-install-recommends \
         ca-certificates curl xz-utils git zip unzip \
         python3 python3-pip python3-venv \
-        docker.io \
+        docker-cli \
     && rm -rf /var/lib/apt/lists/*
 
 # ---- Node.js LTS (official tarball, arch-aware) ----
