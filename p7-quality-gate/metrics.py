@@ -4,7 +4,6 @@ The code is correct on purpose - this lab is about lint discipline,
 not about bugs. Clean it up according to flake8 when the pipeline
 tells you to.
 """
-import os
 
 
 def mean(values):
