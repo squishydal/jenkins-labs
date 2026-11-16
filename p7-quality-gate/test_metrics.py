@@ -14,5 +14,5 @@ def test_median_odd():
     assert median([3, 1, 2]) == 2
 
 
-def test_median_even_returns_average_and_this_long_descriptive_name_pushes_the_line_over_hundred_chars():
+def test_median_even_returns_average():
     assert median([4, 1, 3, 2]) == 2.5
